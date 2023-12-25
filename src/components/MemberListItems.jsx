@@ -25,12 +25,12 @@ const LineItem = styled.div`
     padding: 0.25rem;
     
     @media (max-width: 850px) {
-        overflow: hidden;
+        overflow-wrap: anywhere;
         width: 23%;
     }
 
     @media (max-width: 500px) {
-        overflow: hidden;
+        overflow-wrap: anywhere;
         width: 22%;
     }
 `

@@ -9,7 +9,7 @@ const TextField = styled.div`
     width: 50%;
 `
 
-const SearchInput = styled.input`
+const InputField = styled.input`
     display: inline-block;
     border: thin solid #fafafa;
     border-bottom: solid medium #999;
@@ -18,6 +18,7 @@ const SearchInput = styled.input`
     padding: 0.625rem;
     border-top-left-radius: 0.625rem;
     border-top-right-radius: 0.625rem;
+    width: 40%;
 
     &:focus {
         border: thin solid #d90000;
@@ -32,6 +33,10 @@ const SearchInput = styled.input`
         color: #d90000;
         background-color: #fff;
         padding: 0 0.313rem 0 0.313rem;
+    }
+
+    @media (max-width: 800px) {
+        width: auto;
     }
 `
 
@@ -57,7 +62,7 @@ function Searchbar({ onSearch, placeholder }) {
 
     return (
         <TextField>
-            <SearchInput type="text" required value={searchTerm} onChange={handleInputChange} />
+            <InputField type="text" required value={searchTerm} onChange={handleInputChange} />
             <SearchLabel>{searchTerm ? null : placeholder}</SearchLabel>
         </TextField>
     )

@@ -128,7 +128,7 @@ function MemberList({ data, children }) {
                         </HeaderItems>
                     </Header>
 
-                    <MemberListItems data={result.length > 0 ? result : items} />
+                    <MemberListItems data={search.length > 0 ? result : items} />
                 </Entries>
             </Component>
             {children}
