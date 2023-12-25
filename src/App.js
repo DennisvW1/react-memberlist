@@ -9,7 +9,7 @@ function App() {
         {
           data => {
             return (
-              <MemberList data={data} /> 
+              <MemberList data={data} />
             );
           }
         }

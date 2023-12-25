@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import MemberListItems from "./MemberListItems";
 import Fuse from 'fuse.js';
 import styled from 'styled-components';
+import Searchbar from "./Searchbar/Searchbar";
 
 const Component = styled.div`
     width: auto;
@@ -9,49 +10,68 @@ const Component = styled.div`
     padding: 0.25rem;
 `
 
-const Search = styled.input`
-    display: block;
-    margin: auto;
-    width: 30%;
-    padding: 0.25rem;
-    &:focus {
-        outline: none;
-    }
-`
-
 const Entries = styled.div`
     padding: 0.25rem;
 `
 
 const Header = styled.div`
-border: 1px solid #D90000;
-background: #D90000;
-width: auto;
-padding: 0.25rem;
-color: #fff;
+    border: 1px solid #D90000;
+    background: #D90000;
+    width: auto;
+    padding: 0.25rem;
+    color: #fff;
+
+    @media (max-width: 850px) {
+        padding: 0
+    }
 `
 
 const HeaderItems = styled.div`
-    width: 75%;
-    border: 1px solid black;
-    `
-    
+    width: auto;
+`
+
 const HeaderItem = styled.div`
-    border: 1px solid black;
     display: inline-flex;
-    width: 32%;
+    width: 24%;
     padding: 0.25rem;
     &:hover {
         cursor: pointer;
     }
+
+    @media (max-width: 850px) {
+        overflow: hidden;
+        width: 23%;
+    }
+
+    @media (max-width: 500px) {
+        overflow: hidden;
+        width: 22%;
+    }
 `
 
+const HeaderItem2 = styled.div`
+    display: inline-flex;
+    width: 24%;
+    padding: 0.25rem;
+
+    @media (max-width: 850px) {
+        overflow: hidden;
+        width: 23%;
+    }
+
+    @media (max-width: 500px) {
+        overflow: hidden;
+        width: 22%;
+    }
+`
+
+
 function MemberList({ data, children }) {
-    const [ search, setSearch ] = useState("");
-    const [ items, setItems ] = useState(data);
+    const [search, setSearch] = useState("");
+    const [items, setItems] = useState(data);
     // true = asc, false = desc
-    const [ sortOrder, setSortOrder ] = useState({naam: true, email: true, visit: true})    
-    
+    const [sortOrder, setSortOrder] = useState({ naam: true, email: true, visit: true })
+
     const fuseOptions = {
         includeScore: true,
         threshold: 0.2,
@@ -73,7 +93,7 @@ function MemberList({ data, children }) {
         const sortProperty = types[type];
         let sort;
         let updatedSortOrder;
-        
+
         if (sortOrder[type]) {
             sort = sortArray.sort((a, b) => (a[sortProperty] > b[sortProperty]) ? 1 : -1);
         } else {
@@ -87,10 +107,8 @@ function MemberList({ data, children }) {
         setItems(sort);
     }
 
-    const handleInputChange = (e) => {
-        e.preventDefault();
-
-        setSearch(e.target.value);
+    const handleInputChange = (value) => {
+        setSearch(value);
     }
 
     const fuse = new Fuse(items, fuseOptions);
@@ -99,24 +117,23 @@ function MemberList({ data, children }) {
     return (
         <>
             <Component>
-                <Search type="text" name="search" placeholder="Zoek hier in de lijst" value={search} onChange={handleInputChange} style={{ padding: "0.25rem", marginBottom: "0.25rem"}}/>
+                <Searchbar placeholder="Zoek in de lijst" onSearch={handleInputChange} />
                 <Entries>
                     <Header>
-                        {/* <div style={{ display: "inline-flex", width: "100%" }}> */}
-                            <HeaderItems>
-                                <HeaderItem onClick={() => handleSort("naam")}>Naam</HeaderItem>
-                                <HeaderItem onClick={() => handleSort("email")}>Email</HeaderItem>
-                                <HeaderItem onClick={() => handleSort("visit")}>Laatste bezoek</HeaderItem>
-                            </HeaderItems>
-                        {/* </div> */}
+                        <HeaderItems>
+                            <HeaderItem onClick={() => handleSort("naam")}>Naam</HeaderItem>
+                            <HeaderItem onClick={() => handleSort("email")}>Email</HeaderItem>
+                            <HeaderItem onClick={() => handleSort("visit")}>Laatste bezoek</HeaderItem>
+                            <HeaderItem2> </HeaderItem2>
+                        </HeaderItems>
                     </Header>
 
                     <MemberListItems data={result.length > 0 ? result : items} />
                 </Entries>
             </Component>
-            { children }
+            {children}
         </>
     );
-  }
-  
-  export default MemberList;
+}
+
+export default MemberList;
