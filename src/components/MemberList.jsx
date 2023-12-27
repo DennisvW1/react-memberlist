@@ -3,6 +3,7 @@ import MemberListItems from "./MemberListItems";
 import Fuse from 'fuse.js';
 import styled from 'styled-components';
 import Searchbar from "./Searchbar/Searchbar";
+import { MemberlistHeader, MemberListHeaderLineItems, MemberListHeaderLineItem, MemberlistHeaderItemEmpty } from "./Styled/MemberList";
 
 const Component = styled.div`
     width: auto;
@@ -12,57 +13,6 @@ const Component = styled.div`
 
 const Entries = styled.div`
     padding: 0.25rem;
-`
-
-const Header = styled.div`
-    border: 1px solid #D90000;
-    background: #D90000;
-    width: auto;
-    padding: 0.25rem;
-    color: #fff;
-
-    @media (max-width: 850px) {
-        padding: 0
-    }
-`
-
-const HeaderItems = styled.div`
-    width: auto;
-`
-
-const HeaderItem = styled.div`
-    display: inline-flex;
-    width: 24%;
-    padding: 0.25rem;
-    &:hover {
-        cursor: pointer;
-    }
-
-    @media (max-width: 850px) {
-        overflow: hidden;
-        width: 23%;
-    }
-
-    @media (max-width: 500px) {
-        overflow: hidden;
-        width: 22%;
-    }
-`
-
-const HeaderItem2 = styled.div`
-    display: inline-flex;
-    width: 24%;
-    padding: 0.25rem;
-
-    @media (max-width: 850px) {
-        overflow: hidden;
-        width: 23%;
-    }
-
-    @media (max-width: 500px) {
-        overflow: hidden;
-        width: 22%;
-    }
 `
 
 
@@ -119,14 +69,14 @@ function MemberList({ data, children }) {
             <Component>
                 <Searchbar placeholder="Zoek in de lijst" onSearch={handleInputChange} />
                 <Entries>
-                    <Header>
-                        <HeaderItems>
-                            <HeaderItem onClick={() => handleSort("naam")}>Naam</HeaderItem>
-                            <HeaderItem onClick={() => handleSort("email")}>Email</HeaderItem>
-                            <HeaderItem onClick={() => handleSort("visit")}>Laatste bezoek</HeaderItem>
-                            <HeaderItem2> </HeaderItem2>
-                        </HeaderItems>
-                    </Header>
+                    <MemberlistHeader>
+                        <MemberListHeaderLineItems>
+                            <MemberListHeaderLineItem onClick={() => handleSort("naam")}>Naam</MemberListHeaderLineItem>
+                            <MemberListHeaderLineItem onClick={() => handleSort("email")}>Email</MemberListHeaderLineItem>
+                            <MemberListHeaderLineItem onClick={() => handleSort("visit")}>Laatste bezoek</MemberListHeaderLineItem>
+                            <MemberlistHeaderItemEmpty />
+                        </MemberListHeaderLineItems>
+                    </MemberlistHeader>
 
                     <MemberListItems data={search.length > 0 ? result : items} />
                 </Entries>

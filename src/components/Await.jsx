@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 //import axios from "axios";
 
-
 const fakeData = [
     { id: 1, naam: "Dennis van Willigen", email: "dennis.vanwilligen@gmail.com", lastVisit: "2023-12-21 10:33:18" },
     { id: 2, naam: "Albi Eshuis", email: "albi.eshuis@gmail.com", lastVisit: "2023-11-20 21:34:17" },
