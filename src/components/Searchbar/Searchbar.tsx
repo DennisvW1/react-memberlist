@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { TextField, InputField, SearchLabel } from '../Styled/SearchBar';
 
-function Searchbar({ onSearch, placeholder }) {
+type Props = {
+    onSearch: any;
+    placeholder: string;
+}
+
+function Searchbar({ onSearch, placeholder }: Props) {
     const [searchTerm, setSearchTerm] = useState("");
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {
         const value = e.target.value;
         setSearchTerm(value);
 

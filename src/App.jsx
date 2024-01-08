@@ -4,7 +4,6 @@ import MemberList from './components/MemberList';
 function App() {
   return (
     <div className="App">
-
       <Await>
         {
           data => {
