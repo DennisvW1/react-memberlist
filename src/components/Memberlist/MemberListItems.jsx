@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "./Styled/Components";
-import { MemberlistLineHeader, MemberListLineItems, MemberListLineItem } from "./Styled/MemberList";
+import { Button } from "../Styled/Components";
+import { MemberlistLineHeader, MemberListLineItems, MemberListLineItem } from "../Styled/MemberList";
 
 
 

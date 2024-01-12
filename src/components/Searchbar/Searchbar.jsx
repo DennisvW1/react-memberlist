@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, InputField, SearchLabel } from '../Styled/SearchBar';
 
-function Searchbar({ onSearch, placeholder }) {
+function Searchbar({ onSearch, placeholder, disabled }) {
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleInputChange = (e) => {
@@ -14,8 +14,8 @@ function Searchbar({ onSearch, placeholder }) {
 
     return (
         <TextField>
-            <InputField type="text" required value={searchTerm} onChange={handleInputChange} />
-            <SearchLabel>{searchTerm ? null : placeholder}</SearchLabel>
+            <InputField type="text" required value={searchTerm} onChange={handleInputChange} disabled={disabled} />
+            <SearchLabel disabled={disabled}>{searchTerm ? null : placeholder}</SearchLabel>
         </TextField>
     )
 }

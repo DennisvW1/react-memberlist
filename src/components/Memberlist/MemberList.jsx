@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import MemberListItems from "./MemberListItems";
 import Fuse from 'fuse.js';
 import styled from 'styled-components';
-import Searchbar from "./Searchbar/Searchbar";
-import { MemberlistHeader, MemberListHeaderLineItems, MemberListHeaderLineItem, MemberlistHeaderItemEmpty } from "./Styled/MemberList";
+import Searchbar from "../Searchbar/Searchbar";
+import { MemberlistHeader, MemberListHeaderLineItems, MemberListHeaderLineItem, MemberlistHeaderItemEmpty } from "../Styled/MemberList";
 
 const Component = styled.div`
     width: auto;
@@ -15,22 +15,23 @@ const Entries = styled.div`
     padding: 0.25rem;
 `
 
-
-function MemberList({ data, message, children }) {
+const MemberList = ({ data, message, children }) => {
     const [search, setSearch] = useState("");
     const [items, setItems] = useState(data);
     // true = asc, false = desc
     const [sortOrder, setSortOrder] = useState({ naam: true, email: true, visit: true })
-    console.log(data);
+
     const fuseOptions = {
         includeScore: true,
         threshold: 0.2,
-        keys: ["name", "email", "lastLogin"]
+        keys: ["name", "email"]
     }
 
     useEffect(() => {
         setItems(data);
     }, [data])
+
+    const disabled = message.length >= 1 || data.length === 0;
 
     const handleSort = (type) => {
         const types = {
@@ -64,16 +65,17 @@ function MemberList({ data, message, children }) {
     const fuse = new Fuse(items, fuseOptions);
     const result = fuse.search(search);
 
+
     return (
         <>
             <Component>
-                <Searchbar placeholder="Zoek in de lijst" onSearch={handleInputChange} />
+                <Searchbar placeholder="Zoek in de lijst" onSearch={handleInputChange} disabled={disabled} />
                 <Entries>
                     <MemberlistHeader>
                         <MemberListHeaderLineItems>
-                            <MemberListHeaderLineItem onClick={() => handleSort("naam")}>Naam</MemberListHeaderLineItem>
-                            <MemberListHeaderLineItem onClick={() => handleSort("email")}>Email</MemberListHeaderLineItem>
-                            <MemberListHeaderLineItem onClick={() => handleSort("visit")}>Laatste bezoek</MemberListHeaderLineItem>
+                            <MemberListHeaderLineItem onClick={disabled ? undefined : () => handleSort("naam")}>Naam</MemberListHeaderLineItem>
+                            <MemberListHeaderLineItem onClick={disabled ? undefined : () => handleSort("email")}>Email</MemberListHeaderLineItem>
+                            <MemberListHeaderLineItem onClick={disabled ? undefined : () => handleSort("visit")}>Laatste bezoek</MemberListHeaderLineItem>
                             <MemberlistHeaderItemEmpty />
                         </MemberListHeaderLineItems>
                     </MemberlistHeader>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import AwaitGet from './components/AwaitGet';
-import MemberList from './components/MemberList';
+import AwaitGet from './components/Await/AwaitGet';
+import MemberList from './components/Memberlist/MemberList';
 
 function App() {
   const [message, setMessage] = useState("");

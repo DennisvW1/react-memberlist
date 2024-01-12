@@ -25,6 +25,10 @@ export const InputField = styled.input`
         background-color: transparent;
     }
 
+    &:disabled {
+        cursor: not-allowed;
+    }
+
     &:focus~label,valid~label {
         top: -0.625rem;
         left: 0.938rem;
@@ -46,4 +50,8 @@ export const SearchLabel = styled.label`
     left: 0.625rem;
     top: 0.625rem;
     transition: 0.2s;
+
+    &:disabled {
+        color: red;
+    }
 `
