@@ -16,16 +16,16 @@ const Entries = styled.div`
 `
 
 
-function MemberList({ data, children }) {
+function MemberList({ data, message, children }) {
     const [search, setSearch] = useState("");
     const [items, setItems] = useState(data);
     // true = asc, false = desc
     const [sortOrder, setSortOrder] = useState({ naam: true, email: true, visit: true })
-
+    console.log(data);
     const fuseOptions = {
         includeScore: true,
         threshold: 0.2,
-        keys: ["naam", "email"]
+        keys: ["name", "email", "lastLogin"]
     }
 
     useEffect(() => {
@@ -36,7 +36,7 @@ function MemberList({ data, children }) {
         const types = {
             naam: "naam",
             email: "email",
-            visit: "lastVisit"
+            visit: "lastLogin"
         }
 
         const sortArray = items;
@@ -78,7 +78,7 @@ function MemberList({ data, children }) {
                         </MemberListHeaderLineItems>
                     </MemberlistHeader>
 
-                    <MemberListItems data={search.length > 0 ? result : items} />
+                    <MemberListItems data={search.length > 0 ? result : items} message={message} />
                 </Entries>
             </Component>
             {children}

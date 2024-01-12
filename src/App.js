@@ -1,19 +1,18 @@
-import Await from './components/Await';
+import { useState } from 'react';
+import AwaitGet from './components/AwaitGet';
 import MemberList from './components/MemberList';
 
 function App() {
+  const [message, setMessage] = useState("");
   return (
     <div className="App">
-
-      <Await>
+      <AwaitGet url={"/users/getuserlist"} setMessage={setMessage}>
         {
-          data => {
-            return (
-              <MemberList data={data} />
-            );
-          }
+          data => (
+            <MemberList data={data} message={message} />
+          )
         }
-      </Await>
+      </AwaitGet>
     </div>
   );
 }

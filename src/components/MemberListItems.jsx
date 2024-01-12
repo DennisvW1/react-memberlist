@@ -2,20 +2,33 @@ import React from "react";
 import { Button } from "./Styled/Components";
 import { MemberlistLineHeader, MemberListLineItems, MemberListLineItem } from "./Styled/MemberList";
 
-function MemberListItems({ data }) {
+
+
+const MemberListItems = ({ data, message }) => {
+    if (message) {
+        return (
+            <MemberlistLineHeader key={"1"}>
+                <MemberListLineItems>
+                    <MemberListLineItem>{message}</MemberListLineItem>
+                </MemberListLineItems>
+            </MemberlistLineHeader>
+        )
+    }
+
     return data.map((data, index) => {
         data = data.item === undefined ? data : data.item;
 
         return (
             <MemberlistLineHeader key={index}>
                 <MemberListLineItems>
-                    <MemberListLineItem>{data.naam}</MemberListLineItem>
+                    <MemberListLineItem>{data.name}</MemberListLineItem>
                     <MemberListLineItem>{data.email}</MemberListLineItem>
-                    <MemberListLineItem>{data.lastVisit}</MemberListLineItem>
+                    <MemberListLineItem>{data.lastLogin ?? <i><u>Nog nooit ingelogd</u></i>}</MemberListLineItem>
                     <MemberListLineItem><Button className="button">Verander rol</Button><Button>Verwijder</Button></MemberListLineItem>
                 </MemberListLineItems>
             </MemberlistLineHeader>
         )
+
     })
 }
 
